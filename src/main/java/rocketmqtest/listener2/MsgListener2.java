@@ -17,8 +17,8 @@ import java.nio.charset.StandardCharsets;
  * 20240124
  * 顺序消息，不同消费者组各有一个固定的消费者同时拿一条相同的消息消费，这个消费者由发送消息时设置的queueId和rocketmq算法决定
  */
-@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-2",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
-@Component
+//@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-2",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
+//@Component
 public class MsgListener2 implements RocketMQListener<MessageExt> {
 
     private static final Logger log = LoggerFactory.getLogger(MsgListener2.class);

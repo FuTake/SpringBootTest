@@ -28,13 +28,15 @@ public class MsgController {
 
     private static final Logger log = LoggerFactory.getLogger(MsgController.class);
     private static final String topicName = "rocketmq-test";
+    private static final String test2 = "rocketmq-test2";
     private static final String brokerName = "broker-a";
 
     public static void main(String[] args) throws UnsupportedEncodingException, MQClientException, MQBrokerException, RemotingException, InterruptedException {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 5, TimeUnit.SECONDS, new ArrayBlockingQueue<>(1));
         executor.execute(()->{
             try {
-                orderMsg();
+//                orderMsg();
+                orderMsgTest2ForOnce();
             }catch (Exception e){
                 log.error("disorderMsg error", e);
             }
@@ -197,10 +199,41 @@ public class MsgController {
                 Message msg = new Message(topicName, "tag1", (date + "-orderlyMsg").getBytes(RemotingHelper.DEFAULT_CHARSET));
                 // 指定消息发送到 指定的队列中，从而实现 消息的顺序消费
                 SendResult sendResult = producer.send(msg, messageQueue);
+                //SendResult sendResult = producer.send(msg, new MessageQueue(topicName, brokerName, 0));
                 System.out.println("status-->" + sendResult.getSendStatus());
             }catch (Exception e){
                 log.info("sendMsgError ", e);
             }
+        }
+    }
+    public static void orderMsgTest2ForOnce() throws Exception {
+        // 不能和disorderMsg使用同一个生产者组
+        DefaultMQProducer producer = new
+                DefaultMQProducer("rocketmq-test-orderproducer");
+        // Specify name server addresses.
+        producer.setNamesrvAddr("localhost:9876");
+        producer.setSendMsgTimeout(13000);
+        producer.setCreateTopicKey("AUTO_CREATE_TOPIC_KEY");
+        //Launch the instance.
+        producer.start();
+
+        MessageQueue messageQueue = new MessageQueue();
+        messageQueue.setBrokerName(brokerName);
+        messageQueue.setTopic(test2);
+        // 不指定queueId则一直给queueId=0发送消息
+//        messageQueue.setQueueId(3);
+        try {
+            for (int i = 0; i < 4; i++) {
+                Thread.sleep(1000);
+                LocalDateTime time = LocalDateTime.now();
+                String date = time.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+                Message msg = new Message(test2, null, (date + "-orderlyMsg").getBytes(RemotingHelper.DEFAULT_CHARSET));
+                // 指定消息发送到 指定的队列中，从而实现 消息的顺序消费
+                SendResult sendResult = producer.send(msg, messageQueue);
+                System.out.println("status-->" + sendResult.getSendStatus());
+            }
+        }catch (Exception e){
+            log.info("sendMsgError ", e);
         }
     }
 

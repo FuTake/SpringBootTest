@@ -1,4 +1,4 @@
-package rocketmqtest.listener;
+package rocketmqtest.listener3;
 
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.spring.annotation.ConsumeMode;
@@ -14,16 +14,19 @@ import java.nio.charset.StandardCharsets;
 /**
  * @author zhg
  * @date 2023/8/24
+ *
+ *
  */
-//@RocketMQMessageListener(topic = "rocketmq-test",consumerGroup = "rocketmq-consumer-1",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
-//@Component
-public class MsgListenerThree implements RocketMQListener<MessageExt> {
 
-    private static final Logger log = LoggerFactory.getLogger(MsgListener.class);
+//@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-2",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
+//@Component
+public class MsgListener3Two implements RocketMQListener<MessageExt> {
+
+    private static final Logger log = LoggerFactory.getLogger(MsgListener3Two.class);
 
     @Override
     public void onMessage(MessageExt messageExt) {
         String content = new String(messageExt.getBody(), StandardCharsets.UTF_8);
-        log.info("msgListener3 content = " + messageExt.getMsgId() + " - " + messageExt.getQueueId() + " - " + content);
+        log.info("msgListener2-2 content = " + messageExt.getMsgId() + " - " + messageExt.getQueueId() + " - " + content);
     }
 }

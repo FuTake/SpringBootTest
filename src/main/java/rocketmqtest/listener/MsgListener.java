@@ -43,8 +43,8 @@ import java.nio.charset.StandardCharsets;
  *  3.listenerTwo 是consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.BROADCASTING
  *  会出现 1，2，3同时收到同一条消息
  */
-@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-1",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
-@Component
+//@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-1",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
+//@Component
 public class MsgListener implements RocketMQListener<MessageExt> {
 
     private static final Logger log = LoggerFactory.getLogger(MsgListener.class);

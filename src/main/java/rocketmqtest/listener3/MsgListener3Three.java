@@ -1,13 +1,10 @@
-package rocketmqtest.listener2;
+package rocketmqtest.listener3;
 
 import org.apache.rocketmq.common.message.MessageExt;
-import org.apache.rocketmq.spring.annotation.ConsumeMode;
-import org.apache.rocketmq.spring.annotation.MessageModel;
-import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;
 import org.apache.rocketmq.spring.core.RocketMQListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
+import rocketmqtest.listener2.MsgListener2Four;
 
 import java.nio.charset.StandardCharsets;
 
@@ -17,9 +14,9 @@ import java.nio.charset.StandardCharsets;
  */
 //@RocketMQMessageListener(topic = "rocketmq-test",consumerGroup = "rocketmq-consumer-2",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
 //@Component
-public class MsgListener2Three implements RocketMQListener<MessageExt> {
+public class MsgListener3Three implements RocketMQListener<MessageExt> {
 
-    private static final Logger log = LoggerFactory.getLogger(MsgListener2.class);
+    private static final Logger log = LoggerFactory.getLogger(MsgListener2Four.class);
 
     @Override
     public void onMessage(MessageExt messageExt) {

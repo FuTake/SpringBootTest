@@ -19,8 +19,8 @@ import java.nio.charset.StandardCharsets;
  *
  */
 
-@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-1",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
-@Component
+//@RocketMQMessageListener(topic = "rocketmq-test", consumeThreadMax = 1,consumerGroup = "rocketmq-consumer-1",consumeMode = ConsumeMode.CONCURRENTLY, messageModel = MessageModel.CLUSTERING)
+//@Component
 public class MsgListenerTwo implements RocketMQListener<MessageExt> {
 
     private static final Logger log = LoggerFactory.getLogger(MsgListenerTwo.class);
